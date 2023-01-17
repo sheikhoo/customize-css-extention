@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Custom CSS</title>
+    <title>Custom CSS</title>
+    <link
+      rel="stylesheet"
+      href="css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/beautify.js"></script>
   </head>
   <body>
-    <textarea id="custom-css"></textarea>
-    <button id="save-button">Save</button>
-    <script src="popup.js"></script>
+    <div class="container">
+      <h1 class="text-center">Custom CSS</h1>
+      <textarea id="custom-css" class="form-control"></textarea>
+      <br />
+      <div class="text-center">
+        <button id="beautify-button" class="btn btn-success">
+          Beautify CSS
+        </button>
+        <button id="save-button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+    <script src="js/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/popup.js"></script>
   </body>
 </html>
