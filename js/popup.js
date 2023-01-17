@@ -1,5 +1,8 @@
-// Import the beautify function
-const beautify = window.js_beautify.css;
+var editor = CodeMirror.fromTextArea(document.getElementById('custom-css'), {
+  extraKeys: { 'Ctrl-Space': 'autocomplete' },
+  lineNumbers: true,
+});
+editor.setOption('theme', 'ayu-dark');
 
 let customCSS;
 
@@ -16,6 +19,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           "'; document.head.appendChild(style);",
       });
       document.getElementById('custom-css').value = customCSS;
+      editor.getDoc().setValue(css_beautify(customCSS));
     }
   });
 });
@@ -56,6 +60,7 @@ chrome.tabs.onCreated.addListener(function (tab) {
 
 // Insert custom CSS into textarea
 document.getElementById('custom-css').value = customCSS;
+editor.getDoc().setValue(css_beautify(customCSS));
 
 // Save button click event
 document.getElementById('save-button').addEventListener('click', function () {
@@ -83,5 +88,6 @@ document
   .getElementById('beautify-button')
   .addEventListener('click', function () {
     let css = document.getElementById('custom-css').value;
-    document.getElementById('custom-css').value = beautify(css);
+    document.getElementById('custom-css').value = css_beautify(css);
+    editor.getDoc().setValue(css_beautify(customCSS));
   });

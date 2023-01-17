@@ -7,13 +7,18 @@
       href="css/bootstrap.min.css"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="css/codemirror.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/ayu-dark.css" />
     <script src="js/beautify.js"></script>
+    <script src="js/beautify-css.js"></script>
   </head>
   <body>
     <div class="container">
       <h1 class="text-center">Custom CSS</h1>
-      <textarea id="custom-css" class="form-control"></textarea>
+      <textarea id="custom-css" name="custom-css" class="form-control">
+body{color:red;}</textarea
+      >
       <br />
       <div class="text-center">
         <button id="beautify-button" class="btn btn-success">
@@ -24,6 +29,8 @@
     </div>
     <script src="js/jquery.min.js" crossorigin="anonymous"></script>
     <script src="js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/codemirror.js"></script>
+    <script src="js/css.js"></script>
     <script src="js/popup.js"></script>
   </body>
 </html>
