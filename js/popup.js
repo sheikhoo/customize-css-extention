@@ -18,7 +18,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           customCSS.replace(/(\r\n|\n|\r)/gm, '') +
           "'; document.head.appendChild(style);",
       });
-      document.getElementById('custom-css').value = customCSS;
       editor.getDoc().setValue(css_beautify(customCSS));
     }
   });
@@ -59,13 +58,12 @@ chrome.tabs.onCreated.addListener(function (tab) {
 });
 
 // Insert custom CSS into textarea
-document.getElementById('custom-css').value = customCSS;
 editor.getDoc().setValue(css_beautify(customCSS));
 
 // Save button click event
 document.getElementById('save-button').addEventListener('click', function () {
   // Get the custom CSS from the textarea
-  customCSS = document.getElementById('custom-css').value;
+  customCSS = editor.getDoc().getValue();
   // Save the custom CSS to storage using the current tab URL as the key
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     let data = {};
@@ -87,7 +85,6 @@ document.getElementById('save-button').addEventListener('click', function () {
 document
   .getElementById('beautify-button')
   .addEventListener('click', function () {
-    let css = document.getElementById('custom-css').value;
-    document.getElementById('custom-css').value = css_beautify(css);
-    editor.getDoc().setValue(css_beautify(customCSS));
+    let css = editor.getDoc().getValue();
+    editor.getDoc().setValue(css_beautify(css));
   });
