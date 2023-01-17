@@ -22,9 +22,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 
 // Listen for tab updates
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  alert('ok');
   // Check if the tab is fully loaded
-  if (changeInfo.status === 'complete') {
+  if ((changeInfo.status || tab.status) == 'complete') {
     // Retrieve custom CSS from storage using the current tab URL as the key
     chrome.storage.local.get(tab.url, function (result) {
       customCSS = result[tab.url];
@@ -36,27 +35,22 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
             customCSS.replace(/(\r\n|\n|\r)/gm, '') +
             "'; document.head.appendChild(style);",
         });
-      } else {
-        alert(tab.url);
       }
     });
   }
 });
-chrome.tabs.onActivated.addListener(function (activeInfo) {
-  chrome.tabs.get(activeInfo.tabId, function (tab) {
-    chrome.storage.local.get(tab.url, function (result) {
-      customCSS = result[tab.url];
-      if (customCSS != undefined) {
-        chrome.tabs.executeScript(tab.id, {
-          code:
-            'var style = document.createElement("style");' +
-            'style.innerHTML = "' +
-            customCSS.replace(/(\r\n|\n|\r)/gm, '') +
-            '";' +
-            'document.head.appendChild(style);',
-        });
-      }
-    });
+chrome.tabs.onCreated.addListener(function (tab) {
+  chrome.storage.local.get(tab.url, function (result) {
+    customCSS = result[tab.url];
+    if (customCSS != undefined) {
+      // Insert custom CSS into the website
+      chrome.tabs.executeScript(tab.id, {
+        code:
+          "var style = document.createElement('style'); style.innerHTML = '" +
+          customCSS.replace(/(\r\n|\n|\r)/gm, '') +
+          "'; document.head.appendChild(style);",
+      });
+    }
   });
 });
 
