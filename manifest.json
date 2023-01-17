@@ -3,7 +3,7 @@
   "name": "My Custom CSS",
   "description": "Insert custom CSS into websites",
   "version": "1.0",
-  "permissions": ["activeTab", "storage", "fileSystem"],
+  "permissions": ["activeTab", "storage"],
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
